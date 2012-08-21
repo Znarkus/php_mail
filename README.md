@@ -1,11 +1,18 @@
 # php_mail
 
-Another PHP mail wrapper lib
+Another PHP mail wrapper lib.
 
 
 ## Adapters
 
-* [Swiftmailer](http://swiftmailer.org/) - Supports SMTP, sendmail, postfix, server username/password and encryption.
+### `swift`
+
+Uses [Swiftmailer](http://swiftmailer.org/) which support SMTP, sendmail,
+postfix, server username/password and encryption.
+
+Required setup parameters: host, port.  
+Optional: user, pass.
+
 
 
 ## Install
@@ -17,7 +24,8 @@ Clone and init submodules.
 
 ## Setup
 
-This example uses the Swiftmailer adapter.
+This example uses the `swift` adapter. Every adapter can take a `from`
+parameter, in addition to the adapter specfic parameters.
 
 	require 'lib/abstract.php';
 	require 'lib/swift.php';
@@ -36,8 +44,8 @@ This example uses the Swiftmailer adapter.
 
 ## Templating
 
-Templates could be stored in files and loaded with [file_get_contents()](http://php.net/manual/en/function.file-get-contents.php),
-or with some template engine.
+Templates could be stored in files and loaded with
+[file_get_contents()](http://php.net/manual/en/function.file-get-contents.php), or with some template engine.
 
 	$tpl = "
 	SUBJECT
@@ -55,6 +63,6 @@ or with some template engine.
 
 ## License
 
-Copyright 2012, [Markus Hedlund](http://markushedlund.com), [Snowfire](http://snowfireit.com)  
+Copyright 2012, [Markus Hedlund](http://markushedlund.com), [Snowfire](http://snowfireit.com).  
 Licensed under the MIT License.  
 Redistributions of files must retain the above copyright notice.
