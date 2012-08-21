@@ -4,7 +4,7 @@ namespace Lib;
 
 require_once '../vendor/swift/lib/swift_required.php';
 
-class Mail_Swift implements Mail_Interface
+class Mail_Swift extends Mail_Abstract
 {
 	/**
 	* @var \Swift_Message
@@ -14,17 +14,16 @@ class Mail_Swift implements Mail_Interface
 	/**
 	* @var \Swift_Mailer
 	*/
-	static private $_mailer;
-	static private $_defaults = array();
+	private $_mailer;
 	
-	public function __construct()
+	public function __construct(&$p)
 	{
+		$this->_mailer = &$p['mailer'];
 		$this->_message = new \Swift_Message();
-		$this->from(self::$_defaults['from']['address'], self::$_defaults['from']['name']);
 	}
 
 	/**
-	 * Parameters: from (address, name), host, port,
+	 * Parameters: host, port, user, pass
 	 * @param array $parameters
 	 */
 	public static function setup(array $parameters)
@@ -46,67 +45,8 @@ class Mail_Swift implements Mail_Interface
 			$transport->setUsername($parameters['user'])->setPassword($parameters['pass']);
 		}
 
-		self::$_mailer = \Swift_Mailer::newInstance($transport);
-		self::$_defaults['from'] = $parameters['from'];
-	}
-
-	/**
-	 * @return Mail_Swift
-	 */
-	public function template($template)
-	{
-		preg_match('/\v*SUBJECT\v+(?<subject>.+)\v+(?<body_type>HTML|PLAIN) BODY\v+(?<body>.+)$/s', $template, $m);
-
-		$this->subject($m['subject']);
-		$this->body($m['body'], $m['body_type'] === 'HTML' ? 'text/html' : 'text/plain');
-
-		return $this;
-	}
-	
-	/**
-	* @return Mail_Swift
-	*/
-	public function subject($subject)
-	{
-		$this->_message->setSubject($subject);
-		return $this;
-	}
-	
-	/**
-	* @return Mail_Swift
-	*/
-	public function from($address, $name = null)
-	{
-		if ($name) {
-			$this->_message->setFrom(array($address => $name));
-		} else {
-			$this->_message->setFrom($address);
-		}
-		
-		return $this;
-	}
-	
-	/**
-	* @return Mail_Swift
-	*/
-	public function to($address, $name = null)
-	{
-		if ($name) {
-			$this->_message->setTo(array($address => $name));
-		} else {
-			$this->_message->setTo($address);
-		}
-		
-		return $this;
-	}
-	
-	/**
-	* @return Mail_Swift
-	*/
-	public function body($message, $content_type = 'text/plain')
-	{
-		$this->_message->setBody($message, $content_type, 'utf-8');
-		return $this;
+		$parameters['mailer'] = \Swift_Mailer::newInstance($transport);
+		return $parameters;
 	}
 	
 	/**
@@ -114,7 +54,15 @@ class Mail_Swift implements Mail_Interface
 	*/
 	public function send()
 	{
-		self::$_mailer->send($this->_message);
+		$this->_message->setSubject($this->parameters('subject'));
+		$this->_message->setFrom($this->parameters('from'));
+		$this->_message->setTo($this->parameters('to'));
+		
+		foreach ($this->parameters('body') as $type => $body) {
+			$this->_message->setBody($body, $type, 'utf-8');
+		}
+		
+		$this->_mailer->send($this->_message);
 		return $this;
 	}
 }

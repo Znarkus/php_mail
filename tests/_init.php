@@ -6,8 +6,9 @@ if ($argc < 3) {
 	exit("Usage: {$argv[0]} host port [user] [pass]\n");
 }
 
-require '../lib/interface.php';
+require '../lib/abstract.php';
 require '../lib/swift.php';
+require '../lib/factory.php';
 
 $p = array(
 	'host' => $argv[1],
@@ -20,4 +21,4 @@ if ($argc > 3) {
 	$p['pass'] = $argv[4];
 }
 
-Lib\Mail_Swift::setup($p);
+$factory = new Lib\Mail_Factory('swift', $p);

@@ -12,5 +12,5 @@ Line 2
 Line 3
 ";
 
-$mail = new \Lib\Mail_Swift();
-$mail->template($tpl)->to('jane@example.com')->send();
+$factory->create()
+	->template($tpl)->to('jane@example.com')->send();
