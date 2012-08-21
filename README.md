@@ -45,6 +45,6 @@ or with some template engine.
 
 ## License
 
-Copyright 2012, Markus Hedlund, [Snowfire](snowfireit.com)
-Licensed under the MIT License.
+Copyright 2012, [Markus Hedlund](http://markushedlund.com), [Snowfire](http://snowfireit.com)  
+Licensed under the MIT License.  
 Redistributions of files must retain the above copyright notice.
