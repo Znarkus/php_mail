@@ -3,6 +3,11 @@
 Another PHP mail wrapper lib
 
 
+## Adapters
+
+* [Swiftmailer](http://swiftmailer.org/) - Supports SMTP, sendmail, postfix, server username/password and encryption.
+
+
 ## Install
 
 Clone and init submodules.
@@ -10,18 +15,23 @@ Clone and init submodules.
 	git clone --recursive git://github.com/Znarkus/php_mail.git
 
 
-## Basic usage
+## Setup
+
+This example uses the Swiftmailer adapter.
 
 	require 'lib/abstract.php';
 	require 'lib/swift.php';
 	require 'lib/factory.php';
 
 	$factory = new Lib\Mail_Factory('swift', 
-		array('host' => '127.0.0.1', 'port' => 25, 'from' => array('address' => 'markus@example.com', 'name' => 'Markus')
+		array('host' => '127.0.0.1', 'port' => 25, 'from' => array('address' => 'from@example.com', 'name' => 'Markus')
 	);
 
+
+## Basic usage
+
 	$factory->create()
-		->subject('Testing')->body("Body\nNew line")->to('jane@example.com')->send();
+		->subject('Testing')->body("Body\nNew line")->to('to@example.com')->send();
 
 
 ## Templating
@@ -40,7 +50,7 @@ or with some template engine.
 	";
 
 	$factory->create()
-		->template($tpl)->to('markus@example.com')->send();
+		->template($tpl)->to('to@example.com')->send();
 
 
 ## License
