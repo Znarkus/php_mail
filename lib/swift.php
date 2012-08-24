@@ -2,7 +2,7 @@
 
 namespace Lib;
 
-require_once '../vendor/swift/lib/swift_required.php';
+require_once dirname(__FILE__) . '/../vendor/swift/lib/swift_required.php';
 
 class Mail_Swift extends Mail_Abstract
 {

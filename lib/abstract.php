@@ -10,7 +10,7 @@ abstract class Mail_Abstract
 	* @return Mail_Abstract
 	*/
 	abstract public function send();
-	public static function setup($parameters)
+	public static function setup(array $parameters)
 	{
 		return $parameters;
 	}
