@@ -7,7 +7,7 @@ class Mail_Factory
 	private $_adapter;
 	private $_parameters;
 	
-	private static $_classes = array('swift' => '\Lib\Mail_Swift');
+	private static $_classes = array('swift' => '\Lib\Mail_Swift', 'mailtrap' => '\Lib\Mail_Mailtrap');
 	
 	public function __construct($adapter, $parameters = array())
 	{
