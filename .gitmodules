@@ -1,3 +1,6 @@
 [submodule "vendor/swift"]
 	path = vendor/swift
 	url = git://github.com/swiftmailer/swiftmailer.git
+[submodule "vendor/postmark"]
+	path = vendor/postmark
+	url = https://github.com/Znarkus/postmark-php.git
