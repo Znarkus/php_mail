@@ -13,6 +13,17 @@ postfix, server username/password and encryption.
 Required setup parameters: host, port.  
 Optional: user, pass.
 
+### `mailtrap`
+
+Uses [Mailtrap.io](http://mailtrap.io/). Requires a Mailtrap account.
+
+Required setup parameters: host, port, user, pass.  
+
+### `postmark`
+
+Uses [Postmark](http://postmarkapp.com/). Requires a Postmark account.
+
+Required setup parameters: api_key
 
 
 ## Install
